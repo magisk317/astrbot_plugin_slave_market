@@ -1,0 +1,57 @@
+{
+  "starting_balance": {
+    "type": "int",
+    "default": 2000,
+    "description": "新注册玩家初始金币"
+  },
+  "work_reward_min": {
+    "type": "int",
+    "default": 300,
+    "description": "打工奖励最小值"
+  },
+  "work_reward_max": {
+    "type": "int",
+    "default": 900,
+    "description": "打工奖励最大值"
+  },
+  "auto_task_interval_seconds": {
+    "type": "int",
+    "default": 600,
+    "description": "VIP 自动任务执行间隔（秒）"
+  },
+  "sponsor_image_name": {
+    "type": "string",
+    "default": "ai.png",
+    "description": "赞助二维码图片文件名，放在插件根目录"
+  },
+  "allowed_groups": {
+    "type": "list",
+    "default": [],
+    "description": "允许使用插件的群号列表（为空表示全部）"
+  },
+  "blocked_groups": {
+    "type": "list",
+    "default": [],
+    "description": "禁止使用插件的群号列表"
+  },
+  "allowed_users": {
+    "type": "list",
+    "default": [],
+    "description": "允许使用插件的用户 ID 列表"
+  },
+  "blocked_users": {
+    "type": "list",
+    "default": [],
+    "description": "禁止使用插件的用户 ID 列表"
+  },
+  "gambling_min_bet": {
+    "type": "int",
+    "default": 100,
+    "description": "赌博玩法最小下注"
+  },
+  "gambling_max_bet": {
+    "type": "int",
+    "default": 5000,
+    "description": "赌博玩法最大下注"
+  }
+}

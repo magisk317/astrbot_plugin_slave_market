@@ -13,14 +13,15 @@ PLUGIN_ROOT = Path(__file__).resolve().parent
 if str(PLUGIN_ROOT) not in sys.path:
     sys.path.insert(0, str(PLUGIN_ROOT))
 
-from slave_market import SlaveMarketEngine
+from slave_market import SlaveMarketEngine, load_game_config
 
 
 @register("slave-market", "magisk317", "群聊牛马市场游戏（Python 版）", "1.0.0")
 class SlaveMarketStar(Star):
-    def __init__(self, context: Context):
+    def __init__(self, context: Context, config: dict | None = None):
         super().__init__(context)
-        self.engine = SlaveMarketEngine()
+        game_config = load_game_config(config)
+        self.engine = SlaveMarketEngine(game_config)
 
     async def initialize(self):
         await self.engine.initialize()

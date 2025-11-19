@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
+from copy import deepcopy
 from pathlib import Path
 from typing import Dict, List
 
@@ -199,4 +200,43 @@ __all__ = [
     "VipDefinition",
     "ShopItem",
     "LotteryReward",
+    "load_game_config",
 ]
+
+
+def _normalize_list(value) -> List[str]:
+    if isinstance(value, list):
+        return [str(item).strip() for item in value if str(item).strip()]
+    if isinstance(value, str):
+        if "," in value:
+            candidates = value.split(",")
+        else:
+            candidates = value.splitlines()
+        return [item.strip() for item in candidates if item.strip()]
+    return []
+
+
+def load_game_config(overrides: dict | None = None) -> GameConfig:
+    """Create a GameConfig instance merged with overrides from dashboard config."""
+
+    config = deepcopy(DEFAULT_CONFIG)
+    if not overrides:
+        return config
+
+    list_fields = {
+        "allowed_groups",
+        "blocked_groups",
+        "allowed_users",
+        "blocked_users",
+    }
+
+    for key, value in overrides.items():
+        if value is None:
+            continue
+        if key in list_fields:
+            setattr(config, key, _normalize_list(value))
+            continue
+        if hasattr(config, key):
+            setattr(config, key, value)
+
+    return config
