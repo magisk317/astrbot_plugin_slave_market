@@ -121,6 +121,7 @@ class GameConfig:
     blocked_groups: List[str] = field(default_factory=list)
     allowed_users: List[str] = field(default_factory=list)
     blocked_users: List[str] = field(default_factory=list)
+    initial_admins: List[str] = field(default_factory=list)
 
 
 DEFAULT_CONFIG = GameConfig(
@@ -228,6 +229,7 @@ def load_game_config(overrides: dict | None = None) -> GameConfig:
         "blocked_groups",
         "allowed_users",
         "blocked_users",
+        "initial_admins",
     }
 
     for key, value in overrides.items():

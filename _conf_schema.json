@@ -44,6 +44,11 @@
     "default": [],
     "description": "禁止使用插件的用户 ID 列表"
   },
+  "initial_admins": {
+    "type": "list",
+    "default": [],
+    "description": "初始管理员 ID 列表（platform:userId）"
+  },
   "gambling_min_bet": {
     "type": "int",
     "default": 100,

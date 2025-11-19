@@ -192,6 +192,12 @@ class SlaveMarketEngine:
 
     async def initialize(self) -> None:
         await self.repo.load()
+        if self.config.initial_admins:
+            existing_admins = set(await self.repo.list_admins())
+            for admin_id in self.config.initial_admins:
+                if admin_id and admin_id not in existing_admins:
+                    await self.repo.add_admin(admin_id)
+                    existing_admins.add(admin_id)
         if not self._automation_task:
             self._automation_task = asyncio.create_task(self._run_automation())
 
@@ -228,12 +234,23 @@ class SlaveMarketEngine:
         self, player: Player, event: AstrMessageEvent, args: Sequence[str]
     ):
         lines = [
-            "大牛马时代指令速查",
-            "基础：我的信息 / 打工 / 抢劫",
-            "经济：存款/取款/领取利息/转账/贷款",
-            "市场：牛马市场/购买玩家/放生/赎身",
-            "系统：种地/收获/保镖/红包/VIP",
-            "管理：备份列表/立即备份/恢复备份",
+            "=== 大牛马时代指令速查 ===",
+            "基础：我的信息 / 重开 / 玩家指南",
+            "信息：玩家档案 / 玩家统计 / 查找玩家 / 账单 / 成就",
+            "市场：牛马市场 / 购买玩家 / 抢牛马 / 放生 / 赎身 / 牛马排行",
+            "经济：打工 / 抢劫 / 存款 / 取款 / 领取利息 / 贷款 / 还款",
+            "转账：转账 / 发红包 / 抢红包",
+            "VIP：生成vip卡 / vip兑换 / vip状态 / 自动任务",
+            "商城：道具商城 / 购买道具 / 我的道具 / 使用道具",
+            "外观：形象 / 设置称号 / 设置签名",
+            "福利：领取补助 / 抽奖",
+            "农务：种地 / 收获 / 作物状态 / 天气",
+            "训练：训练 / 属性面板 / 决斗",
+            "安保：保镖市场 / 雇佣保镖 / 保镖状态",
+            "监狱：踩缝纫机 / 交保出狱 / 监狱状态 / 监狱名单",
+            "事件：今日事件 / 黑市竞拍 / 猜硬币 / 掷骰",
+            "管理：备份列表 / 立即备份 / 恢复备份 / 重开玩家 / 禁用牛马",
+            "概览：游戏概览 / 系统资金 / 税收奖池 / 形象 / 设置称号",
         ]
         return CommandResult("\n".join(lines))
 
