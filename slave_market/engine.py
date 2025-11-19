@@ -686,6 +686,20 @@ class SlaveMarketEngine:
         updated = self._format_ts(pool.get("updated_at", now_ts()))
         return CommandResult(f"当前税收奖池：{amount}\n最后更新：{updated}")
 
+    async def cmd_disable(
+        self, player: Player, event: AstrMessageEvent, args: Sequence[str]
+    ):
+        await self.players.require_admin(player)
+        await self.repo.set_plugin_disabled(True)
+        return CommandResult("已禁用牛马系统，普通玩家暂时无法使用指令。")
+
+    async def cmd_enable(
+        self, player: Player, event: AstrMessageEvent, args: Sequence[str]
+    ):
+        await self.players.require_admin(player)
+        await self.repo.set_plugin_disabled(False)
+        return CommandResult("牛马系统已恢复正常。")
+
     async def cmd_prison_work(
         self, player: Player, event: AstrMessageEvent, args: Sequence[str]
     ):
@@ -890,16 +904,3 @@ class SlaveMarketEngine:
 
 
 __all__ = ["SlaveMarketEngine", "CommandResult"]
-    async def cmd_disable(
-        self, player: Player, event: AstrMessageEvent, args: Sequence[str]
-    ):
-        await self.players.require_admin(player)
-        await self.repo.set_plugin_disabled(True)
-        return CommandResult("已禁用牛马系统，普通玩家暂时无法使用指令。")
-
-    async def cmd_enable(
-        self, player: Player, event: AstrMessageEvent, args: Sequence[str]
-    ):
-        await self.players.require_admin(player)
-        await self.repo.set_plugin_disabled(False)
-        return CommandResult("牛马系统已恢复正常。")
