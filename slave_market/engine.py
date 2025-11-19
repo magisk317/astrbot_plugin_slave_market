@@ -168,6 +168,7 @@ class SlaveMarketEngine:
                 Achievement(
                     "farmer",
                     "农场达人",
+                    "力量属性达到 5",
                     lambda p: p.stats.get("力量", 0) >= 5,
                 ),
             ],
