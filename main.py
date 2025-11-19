@@ -17,7 +17,7 @@ from slave_market import SlaveMarketEngine, load_game_config
 
 
 @register("slave-market", "magisk317", "群聊牛马市场游戏（Python 版）", "1.0.0")
-class SlaveMarketStar(Star):
+class SlaveMarketPlugin(Star):
     def __init__(self, context: Context, config: dict | None = None, **_):
         super().__init__(context)
         game_config = load_game_config(config)
@@ -45,3 +45,7 @@ class SlaveMarketStar(Star):
     async def terminate(self):
         await self.engine.shutdown()
         logger.info("Slave market plugin terminated.")
+
+
+# Backward compatibility
+SlaveMarketStar = SlaveMarketPlugin
