@@ -6,6 +6,13 @@ from astrbot.api import logger
 from astrbot.api.event import AstrMessageEvent, filter
 from astrbot.api.star import Context, Star, register
 
+import sys
+from pathlib import Path
+
+PLUGIN_ROOT = Path(__file__).resolve().parent
+if str(PLUGIN_ROOT) not in sys.path:
+    sys.path.insert(0, str(PLUGIN_ROOT))
+
 from slave_market import SlaveMarketEngine
 
 
